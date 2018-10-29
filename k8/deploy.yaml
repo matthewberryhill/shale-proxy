@@ -9,7 +9,7 @@ metadata:
     io.kompose.service: shale-proxy
   name: shale-proxy
 spec:
-  replicas: 3
+  replicas: 1
   strategy:
     type: Recreate
   template:
@@ -22,8 +22,10 @@ spec:
       - env:
         - name: SERVERNAME
           value: matthewberryhill.com
-        image: matthewberryhill/shale-proxy:1
-        name: shale-proxy
+        - name: UPSTREAM
+          value: shale-tasks-api
+        image: matthewberryhill/shale-proxy:3
+        name: shale-proxy-proxy
         ports:
         - containerPort: 80
         - containerPort: 443
